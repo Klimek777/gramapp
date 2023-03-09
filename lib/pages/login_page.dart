@@ -32,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
               _titleWidget(),
               _loginForm(),
               _loginButton(),
+              _registerPageLink(),
             ],
           )),
         ),
@@ -51,15 +52,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _loginForm() {
-    return Container(
-      height: _deviceHeight! * 0.20,
+    return SizedBox(
+      height: _deviceHeight! * 0.25,
       child: Form(
         key: _loginFormKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [_emailTextField(), _passwordTextField()],
+          children: [
+            _emailTextField(),
+            Expanded(child: _passwordTextField()),
+          ],
         ),
       ),
     );
@@ -79,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
               r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"),
         );
 
-        _result ? null : "Please enter a valid email";
+        return _result ? null : "Please enter a valid email";
       },
     );
   }
@@ -87,7 +91,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _passwordTextField() {
     return TextFormField(
       obscureText: true,
-      decoration: const InputDecoration(hintText: "Password..."),
+      decoration: const InputDecoration(
+        hintText: "Password...",
+      ),
       onSaved: (_value) {
         setState(() {
           _password = _value;
@@ -113,5 +119,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _loginUser() {}
+  Widget _registerPageLink() {
+    return GestureDetector(
+      child: const Text(
+        "Don't have an account?",
+        style: TextStyle(
+            color: Colors.blue, fontSize: 15, fontWeight: FontWeight.w200),
+      ),
+      onTap: () => Navigator.pushNamed(context, 'register'),
+    );
+  }
+
+  void _loginUser() {
+    print(_loginFormKey.currentState!.validate());
+    _loginFormKey.currentState!.save();
+    if (_loginFormKey.currentState!.validate()) {}
+  }
 }
