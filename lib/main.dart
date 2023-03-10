@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gramapp/pages/home_page.dart';
 import 'package:gramapp/pages/login_page.dart';
 import 'package:gramapp/pages/register_page.dart';
 
@@ -12,14 +13,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'GramApp',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      initialRoute: 'login',
+      initialRoute: 'home',
       routes: {
         'register': (context) => RegisterPage(),
         'login': (context) => LoginPage(),
+        'home': (context) => HomePage(),
       },
     );
   }

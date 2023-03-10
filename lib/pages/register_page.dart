@@ -64,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             _nameTextField(),
             _emailTextField(),
-            _passwordTextField(),
+            Expanded(child: _passwordTextField()),
           ],
         ),
       ),
@@ -145,7 +145,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _registerButton() {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        _registerUser();
+      },
       minWidth: _deviceWidth! * 0.50,
       height: _deviceHeight! * 0.05,
       color: Colors.red,
@@ -155,5 +157,12 @@ class _RegisterPageState extends State<RegisterPage> {
             fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
       ),
     );
+  }
+
+  void _registerUser() {
+    if (_registerFormKey.currentState!.validate() && _image != null) {
+      _registerFormKey.currentState!.save();
+      print('Valid');
+    }
   }
 }
